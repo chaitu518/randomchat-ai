@@ -1,0 +1,14 @@
+FROM ollama/ollama:latest
+
+# Preload model during build
+RUN ollama pull gemma3:4b
+
+# Bind to all interfaces
+ENV OLLAMA_HOST=0.0.0.0
+ENV OLLAMA_KEEP_ALIVE=24h
+ENV OLLAMA_NUM_PARALLEL=2
+ENV OLLAMA_MAX_LOADED_MODELS=1
+
+EXPOSE 11434
+
+CMD ["ollama", "serve"]
